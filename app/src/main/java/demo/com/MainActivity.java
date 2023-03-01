@@ -35,21 +35,22 @@ public class MainActivity extends AppCompatActivity {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override // вызывается, когда изменен прогресс на SeekBar
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (progress < min) {
+                    seekBar.setProgress(min);
+                }
                 numbers.clear();
                 for (int i = min; i <= count; i++) {
-                    numbers.add(progress * i);
+                    numbers.add(seekBar.getProgress() * i);
                 }
                 arrayAdapter.notifyDataSetChanged();
             }
 
             @Override // когда только начали двигать кружок
             public void onStartTrackingTouch(SeekBar seekBar) {
-
             }
 
             @Override // когда отпустили кружок
             public void onStopTrackingTouch(SeekBar seekBar) {
-
             }
         });
         seekBar.setProgress(10);
